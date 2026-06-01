@@ -23,14 +23,14 @@ jobs:
 
     - name: Create libs folder and download Paper API
       run: |
-        mkdir -p libs
-        curl -z libs/paper-api.jar -o libs/paper-api.jar https://papermc.io
+        mkdir -p FrostAurs/libs
+        curl -z FrostAurs/libs/paper-api.jar -o FrostAurs/libs/paper-api.jar https://papermc.io
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file FrostAurs/pom.xml
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: MineShop-Plugin
-        path: target/*.jar
+        path: FrostAurs/target/*.jar
