@@ -32,8 +32,20 @@ import java.util.*;
 
 public class SoulEventListener implements Listener {
     private final Random random = new Random();
-    private final SoulAbilityExecutor executor = new SoulAbilityExecutor();
     private static final int[] itemPrices = {0, 5, 8, 10, 6, 12, 15, 12, 14, 20};
+
+    // Системные коллекции кулдаунов и эффектов сфер
+    private final Map<UUID, Map<Integer, Long>> cooldowns = new HashMap<>();
+    private final Set<UUID> activeSilence = new HashSet<>();
+    private final Set<UUID> activeVampirism = new HashSet<>();
+    private final Set<UUID> activeBerserk = new HashSet<>();
+    private final Set<UUID> activeOverload = new HashSet<>();
+    private final Map<UUID, BukkitRunnable> activeShields = new HashMap<>();
+
+    private static class ChronosData {
+        final Location loc; final double hp;
+        ChronosData(Location loc, double hp) { this.loc = loc; this.hp = hp; }
+    }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
