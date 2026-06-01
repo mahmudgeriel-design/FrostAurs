@@ -1,0 +1,9 @@
+name: SoulShop
+version: ${project.version}
+main: ru.yourname.soulshop.Main
+api-version: 1.16
+commands:
+  soulshop:
+    description: Открыть Главное Меню Монаха
+    permission: soulshop.use
+    permission-message: §cУ вас нет прав на использование этой команды!
