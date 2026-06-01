@@ -14,21 +14,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <repositories>
-        <!-- Официальный облачный репозиторий PaperMC -->
-        <repository>
-            <id>papermc</id>
-            <url>https://papermc.io</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <!-- Подключение стабильной версии Paper API 1.16.5 из облака -->
+        <!-- Локальное подключение скачанного файла внутри репозитория -->
         <dependency>
             <groupId>destroystokyo.cardboard</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <version>1.16.5-R0.1-LOCAL</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/paper-api.jar</systemPath>
         </dependency>
     </dependencies>
 
