@@ -21,6 +21,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    - name: Create libs folder and download Paper API
+      run: |
+        mkdir -p FrostAurs/libs
+        curl -L -o FrostAurs/libs/paper-api.jar https://papermc.io
+
     - name: Build with Maven
       run: mvn -B package --file FrostAurs/pom.xml
 
