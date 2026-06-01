@@ -44,26 +44,19 @@ public class SoulEventListener implements Listener {
         if (random.nextInt(100)  9) return;
             int price = itemPrices[idx];
             if (getSoulCount(player) >= price) {
-                removeSouls(player, price);
-                player.getInventory().addItem(createCustomItem(idx));
-                player.sendMessage("§aВы успешно купили товар!");
-            } else {
-                player.sendMessage("§cНедостаточно Душ! Требуется: " + price);
-            }
+                removeSouls(player, price); player.getInventory().addItem(createCustomItem(idx)); player.sendMessage("§aВы успешно купили товар!");
+            } else { player.sendMessage("§cНедостаточно Душ! Требуется: " + price); }
             player.closeInventory();
         }
     }
-
     @EventHandler
     public void onCustomItemUse(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        ItemStack item = event.getItem();
+        Player player = event.getPlayer(); ItemStack item = event.getItem();
         if (item == null || !item.hasItemMeta()) return;
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Integer id = item.getItemMeta().getPersistentDataContainer().get(Main.getInstance().getItemIndexKey(), PersistentDataType.INTEGER);
         if (id == null) return;
-        event.setCancelled(true);
-        executor.handleItemUse(player, item, id);
+        event.setCancelled(true); executor.handleItemUse(player, item, id);
     }
 
     @EventHandler
@@ -77,67 +70,34 @@ public class SoulEventListener implements Listener {
         ItemStack soul = new ItemStack(Material.PLAYER_HEAD);
         ItemMeta m = soul.getItemMeta();
         if (m != null) {
-            m.setDisplayName("§b§lДуша");
-            m.setLore(Arrays.asList("§7Душа игрока: §e" + victimName, "§7Используйте у Монаха на спавне."));
-            m.getPersistentDataContainer().set(Main.getInstance().getSoulKey(), PersistentDataType.BYTE, (byte) 1);
-            soul.setItemMeta(m);
+            m.setDisplayName("§b§lДуша"); m.setLore(Arrays.asList("§7Душа игрока: §e" + victimName, "§7Используйте у Монаха на спавне."));
+            m.getPersistentDataContainer().set(Main.getInstance().getSoulKey(), PersistentDataType.BYTE, (byte) 1); soul.setItemMeta(m);
         }
         return soul;
     }
 
     private void openShopMenu(Player player) {
         Inventory shopMenu = Bukkit.createInventory(null, 9, "§0Магазин Сфер и Свитков");
-        for (int i = 1; i <= 9; i++) {
-            shopMenu.setItem(i - 1, createCustomItem(i));
-        }
+        for (int i = 1; i <= 9; i++) { shopMenu.setItem(i - 1, createCustomItem(i)); }
         player.openInventory(shopMenu);
     }
 
     private ItemStack createCustomItem(int id) {
-        ItemStack item = new ItemStack(Material.AIR);
-        ItemMeta meta = null;
+        ItemStack item = new ItemStack(Material.AIR); ItemMeta meta = null;
         switch (id) {
-            case 1:
-                item = new ItemStack(Material.PAPER); meta = item.getItemMeta();
-                if (meta != null) meta.setDisplayName("§cСвиток \"Метеор\"");
-                break;
-            case 2:
-                item = new ItemStack(Material.PAPER); meta = item.getItemMeta();
-                if (meta != null) meta.setDisplayName("§eСвиток \"Священный Купол\"");
-                break;
-            case 3:
-                item = new ItemStack(Material.PAPER); meta = item.getItemMeta();
-                if (meta != null) meta.setDisplayName("§aСвиток \"Подмена Реальности\"");
-                break;
-            case 4:
-                item = new ItemStack(Material.PAPER); meta = item.getItemMeta();
-                if (meta != null) meta.setDisplayName("§8Свиток \"Печать Безмолвия\"");
-                break;
-            case 5:
-                item = new ItemStack(Material.FIREWORK_STAR); meta = item.getItemMeta();
-                if (meta != null) meta.setDisplayName("§4Сфера \"Вампиризм\"");
-                break;
-            case 6:
-                item = new ItemStack(Material.FIREWORK_STAR); meta = item.getItemMeta();
-                if (meta != null) meta.setDisplayName("§6Сфера \"Берсерк\"");
-                break;
-            case 7:
-                item = new ItemStack(Material.FIREWORK_STAR); meta = item.getItemMeta();
-                if (meta != null) meta.setDisplayName("§9Сфера \"Магнитный Импульс\"");
-                break;
-            case 8:
-                item = new ItemStack(Material.FIREWORK_STAR); meta = item.getItemMeta();
-                if (meta != null) meta.setDisplayName("§cСфера \"Перегрузка\"");
-                break;
-            case 9:
-                item = new ItemStack(Material.FIREWORK_STAR); meta = item.getItemMeta();
-                if (meta != null) meta.setDisplayName("§dСфера \"Хронос\"");
-                break;
+            case 1: item = new ItemStack(Material.PAPER); meta = item.getItemMeta(); if (meta != null) meta.setDisplayName("§cСвиток \"Метеор\""); break;
+            case 2: item = new ItemStack(Material.PAPER); meta = item.getItemMeta(); if (meta != null) meta.setDisplayName("§eСвиток \"Священный Купол\""); break;
+            case 3: item = new ItemStack(Material.PAPER); meta = item.getItemMeta(); if (meta != null) meta.setDisplayName("§aСвиток \"Подмена Реальности\""); break;
+            case 4: item = new ItemStack(Material.PAPER); meta = item.getItemMeta(); if (meta != null) meta.setDisplayName("§8Свиток \"Печать Безмолвия\""); break;
+            case 5: item = new ItemStack(Material.FIREWORK_STAR); meta = item.getItemMeta(); if (meta != null) meta.setDisplayName("§4Сфера \"Вампиризм\""); break;
+            case 6: item = new ItemStack(Material.FIREWORK_STAR); meta = item.getItemMeta(); if (meta != null) meta.setDisplayName("§6Сфера \"Берсерк\""); break;
+            case 7: item = new ItemStack(Material.FIREWORK_STAR); meta = item.getItemMeta(); if (meta != null) meta.setDisplayName("§9Сфера \"Магнитный Импульс\""); break;
+            case 8: item = new ItemStack(Material.FIREWORK_STAR); meta = item.getItemMeta(); if (meta != null) meta.setDisplayName("§cСфера \"Перегрузка\""); break;
+            case 9: item = new ItemStack(Material.FIREWORK_STAR); meta = item.getItemMeta(); if (meta != null) meta.setDisplayName("§dСфера \"Хронос\""); break;
         }
         if (meta != null) {
             meta.setLore(Collections.singletonList("§7Цена: §b" + itemPrices[id] + " Душ"));
-            meta.getPersistentDataContainer().set(Main.getInstance().getItemIndexKey(), PersistentDataType.INTEGER, id);
-            item.setItemMeta(meta);
+            meta.getPersistentDataContainer().set(Main.getInstance().getItemIndexKey(), PersistentDataType.INTEGER, id); item.setItemMeta(meta);
         }
         return item;
     }
@@ -146,9 +106,7 @@ public class SoulEventListener implements Listener {
         int count = 0;
         for (ItemStack item : player.getInventory().getContents()) {
             if (item != null && item.getType() == Material.PLAYER_HEAD && item.hasItemMeta()) {
-                if (item.getItemMeta().getPersistentDataContainer().has(Main.getInstance().getSoulKey(), PersistentDataType.BYTE)) {
-                    count += item.getAmount();
-                }
+                if (item.getItemMeta().getPersistentDataContainer().has(Main.getInstance().getSoulKey(), PersistentDataType.BYTE)) { count += item.getAmount(); }
             }
         }
         return count;
@@ -158,17 +116,14 @@ public class SoulEventListener implements Listener {
         for (ItemStack item : player.getInventory().getContents()) {
             if (item != null && item.getType() == Material.PLAYER_HEAD && item.hasItemMeta()) {
                 if (item.getItemMeta().getPersistentDataContainer().has(Main.getInstance().getSoulKey(), PersistentDataType.BYTE)) {
-                    if (item.getAmount() > amount) {
-                        item.setAmount(item.getAmount() - amount); break;
-                    } else {
-                        amount -= item.getAmount(); player.getInventory().remove(item);
-                        if (amount <= 0) break;
-                    }
+                    if (item.getAmount() > amount) { item.setAmount(item.getAmount() - amount); break; }
+                    else { amount -= item.getAmount(); player.getInventory().remove(item); if (amount <= 0) break; }
                 }
             }
         }
     }
 }
+
 class SoulAbilityExecutor {
     private final Map<UUID, Map<Integer, Long>> cooldowns = new HashMap<>();
     private final Set<UUID> activeSilence = new HashSet<>();
@@ -178,32 +133,22 @@ class SoulAbilityExecutor {
     private final Map<UUID, BukkitRunnable> activeShields = new HashMap<>();
 
     private static class ChronosData {
-        final Location loc; final double hp;
-        ChronosData(Location loc, double hp) { this.loc = loc; this.hp = hp; }
+        final Location loc; final double hp; ChronosData(Location loc, double hp) { this.loc = loc; this.hp = hp; }
     }
 
     public void handleItemUse(Player player, ItemStack item, int id) {
         UUID uuid = player.getUniqueId();
-        if (id >= 5 && id <= 8 && activeSilence.contains(uuid)) {
-            player.sendMessage("§cМагия заблокирована эффектом Печать Безмолвия!"); return;
-        }
+        if (id >= 5 && id <= 8 && activeSilence.contains(uuid)) { player.sendMessage("§cМагия заблокирована эффектом Печать Безмолвия!"); return; }
         if (id >= 5 && id <= 9) {
             long current = System.currentTimeMillis(); long cdTime = getCooldown(uuid, id);
-            if (current < cdTime) {
-                player.sendMessage("§cПредмет на перезарядке! Осталось: " + ((cdTime - current) / 1000) + " сек."); return;
-            }
+            if (current < cdTime) { player.sendMessage("§cПредмет на перезарядке! Осталось: " + ((cdTime - current) / 1000) + " сек."); return; }
         }
         boolean success = runLogic(player, id);
         if (success) {
-            if (id <= 4) {
-                item.setAmount(item.getAmount() - 1);
-            } else {
-                int[] cdMinutes = {0, 0, 0, 0, 0, 4, 5, 3, 5, 6};
-                setCooldown(uuid, id, cdMinutes[id] * 60L * 1000L);
-            }
+            if (id <= 4) { item.setAmount(item.getAmount() - 1); } 
+            else { int[] cdMinutes = {0, 0, 0, 0, 0, 4, 5, 3, 5, 6}; setCooldown(uuid, id, cdMinutes[id] * 60L * 1000L); }
         }
     }
-
     private boolean runLogic(Player player, int id) {
         switch (id) {
             case 1: return castMeteor(player);
