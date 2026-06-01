@@ -1,0 +1,9 @@
+name: MineShop
+version: ${project.version}
+main: ru.mine.shop.Main
+api-version: 1.16
+commands:
+  shop:
+    description: Открыть меню магазина блоков
+    permission: mineshop.use
+    permission-message: У вас нет прав на использование этой команды!
